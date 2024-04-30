@@ -1,18 +1,38 @@
 const express = require("express");
+const axios = require("axios");  // Import axios
 const app = express();
 const port = process.env.PORT || 3001;
 
+// Existing route for the homepage
 app.get("/", (req, res) => res.type('html').send(html));
+
+// New route to handle the unlock door functionality
+app.get("/unLockDoor", async (req, res) => {
+    try {
+        const response = await axios.get("http://150.158.131.151:8282/app/openDoor?door_id=20230907104041691909", {
+            headers: {
+                'Authorization': '64ad9294-8f72-4f7d-90a7-0f1f177e9278'  // Set the authorization header
+            }
+        });
+        console.log(response);
+        res.send(response.data);  // Send back the response from the API to the client
+    } catch (error) {
+        // Handle errors if the API call failed
+        console.error("Error calling the openDoor API:", error.message);
+        res.status(500).send("Failed to open door");
+    }
+});
 
 const server = app.listen(port, () => console.log(`Example app listening on port ${port}!`));
 
 server.keepAliveTimeout = 120 * 1000;
 server.headersTimeout = 120 * 1000;
 
+// HTML content for the root route
 const html = `
 <!DOCTYPE html>
 <html>
-  <head>
+<head>
     <title>Hello from Render!</title>
     <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.5.1/dist/confetti.browser.min.js"></script>
     <script>
@@ -58,4 +78,4 @@ const html = `
     </section>
   </body>
 </html>
-`
+`;
