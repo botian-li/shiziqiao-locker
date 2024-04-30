@@ -5,8 +5,8 @@ const port = process.env.PORT || 3001;
 
 app.get("/", (req, res) => res.type('html').send(html));
 
-// Updated /unLockDoor route
-app.get("/unLockDoor", async (req, res) => {
+// 5.1 - 5.2
+app.get("/unLockDoor-3382175", async (req, res) => {
     try {
         const response = await axios.get("http://150.158.131.151:8282/app/openDoor?door_id=20230907104041691909", {
             headers: {
@@ -31,9 +31,10 @@ app.get("/unLockDoor", async (req, res) => {
         res.type('html').send(customHtml);
     } catch (error) {
         console.error("Error calling the openDoor API:", error.message);
-        res.status(500).send("Failed to open door");
+        res.status(500).send("开门失败，请联系管家~");
     }
 });
+
 
 const server = app.listen(port, () => console.log(`Example app listening on port ${port}!`));
 
