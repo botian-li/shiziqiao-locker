@@ -10,7 +10,7 @@ app.get("/unLockDoor-3382175", async (req, res) => {
     try {
         const response = await axios.get("http://150.158.131.151:8282/app/openDoor?door_id=20230907104041691909", {
             headers: {
-                'Authorization': '64ad9294-8f72-4f7d-90a7-0f1f177e9278'
+                'Authorization': '52553373-ced1-46a9-b51c-460a3b07a2db'
             }
         });
         // Extract the message from the API response and embed it in HTML
